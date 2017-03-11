@@ -30,7 +30,7 @@
     <!-- <h2></h2> -->
     <ul>
       <li><p>This demo works on recent versions of Chrome and Firefox with the Web Audio API, make sure it works for you and actually records audio.</p></li>
-      <li><p>Press "Start" and speak</p></li>
+      <li><p>Press "Start" and say "What's your name?"</p></li>
     </ul>
     <select id="grammars"></select>
     <span id="recording-indicator" style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 20px; height: 20px; background: red;"></span>
@@ -90,6 +90,7 @@
          
 
     <script>
+
       // These will be initialized later
       var recognizer, recorder, callbackManager, audioContext, outputContainer,rec;
       // Only when both recorder and recognizer do we have a ready application
