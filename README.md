@@ -6,11 +6,9 @@ PocketSphinx.js is a speech recognizer that runs entirely in the web browser. It
 * a speech recognizer written in C ([PocketSphinx](http://cmusphinx.sourceforge.net/)) converted into JavaScript using [Emscripten](https://github.com/kripken/emscripten),
 * an audio recorder using the web audio API. The audio recorder can be used independently to build other kinds of audio-related web applications.
  
- This project was forked from : https://github.com/syl22-00/pocketsphinx.js 
+This project was forked from : https://github.com/syl22-00/pocketsphinx.js . Head over there to find a more detailed description on the underlying api and how to compile the code and modify it for different purposes.
  
- Head over there to find a more detailed description on pocketsphinx.js
- 
- THe display of acoustic scores for each word is the main feature that has been added to the functionality of the live-demo.
+The display of acoustic scores for each word is the main feature that has been added to the functionality of the live-demo.
 
 You can try it on the project page: https://snd96.github.io/pocketsphinx-scores/live.html
 
