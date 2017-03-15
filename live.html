@@ -34,15 +34,15 @@
     </ul>
     <select id="grammars"></select>
     <span id="recording-indicator" style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 20px; height: 20px; background: red;"></span>
-    <button class="waves-effect waves-light btn" id="startBtn">Start</button>
-    <button class="waves-effect waves-light btn" id="stopBtn">Stop</button>
-    <br/><br/>
-    <p>Click the button below to replay the recorded audio</p>
+    <button class="waves-effect waves-light btn" id="startBtn"><i class="fa fa-microphone" aria-hidden="true" id="icon"></i>
+</button>
+    <!-- <button class="waves-effect waves-light btn" id="stopBtn"><i class="fa fa-stop" aria-hidden="true"></i></button> -->
+    
+<!--     <p>Click the button below to replay the recorded audio</p> -->
 <!--       <audio id="recordedAudio" controls="controls">
       </audio><br/><br/> -->
           <span id="playing-indicator" style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 20px; height: 20px; background: green;"></span>
-      <button class="btn-floating btn-large waves-effect waves-light " id="play" title="Play"><img src="play.png" style="vertical-align: middle;" 
-                 alt="Record" id="change"></button>
+      <button class="btn-small btn waves-effect waves-light " id="play" title="Play"><i class="fa fa-play" aria-hidden="true"></i></button>
 
 
 <div class="row"  style="text-align: center;">
@@ -125,7 +125,7 @@
       // This updates the UI when the app might get ready
       // Only when both recorder and recognizer are ready do we enable the buttons
       function updateUI() {
-        if (isRecorderReady && isRecognizerReady) startBtn.disabled = stopBtn.disabled = false;
+        if (isRecorderReady && isRecognizerReady) startBtn.disabled = false;
       };
       // This is just a logging window where we display the  
       function updateStatus(newStatus) {
@@ -178,25 +178,43 @@
     });
   }
 
+      var check = function(){
+        var id = document.getElementById('icon')
+        var img = id.getAttribute('class')
+        if( img == "fa fa-microphone")
+        {
+          id.setAttribute("class","fa fa-stop");
+          startRecording();
+          //document.getElementById('startBtn').checked = false;
+
+        }
+        else
+        {
+          id.setAttribute("class","fa fa-microphone");
+          stopRecording();
+          //document.getElementById('startBtn').checked = false;
+        }
+      }
+
       // This starts recording. We first need to get the id of the grammar to use
-      var startRecording = function() {
+       function startRecording() {
         var id = document.getElementById('grammars').value;
         if (recorder && recorder.start(id)) displayRecording(true)
         rec && rec.record();
       };
       // Stops recording
-      var stopRecording = function() {
+         function stopRecording() {
         recorder && recorder.stop();
         rec && rec.stop();
         displayRecording(false);
       //playbackRecorderAudio(recorder, audioContext);
       
       
-        rec.exportWAV(function(blob) {
+       //  rec.exportWAV(function(blob) {
 
-        var url = window.URL.createObjectURL(blob);
-          recordedAudio.src = url;
-       });
+       //  var url = window.URL.createObjectURL(blob);
+       //    recordedAudio.src = url;
+       // });
    };
       
       var playback = function(e){
@@ -344,11 +362,10 @@
         else updateStatus("No web audio support in this browser");
       // Wiring JavaScript to the UI
       var startBtn = document.getElementById('startBtn');
-      var stopBtn = document.getElementById('stopBtn');
+      //var stopBtn = document.getElementById('stopBtn');
       startBtn.disabled = true;
-      stopBtn.disabled = true;
-      startBtn.onclick = startRecording;
-      stopBtn.onclick = stopRecording;
+      startBtn.onclick = check;
+ 
       play.onclick = playback;
       //stopBtn.onclick
       };
@@ -372,8 +389,8 @@
     <script src="js/audioRecorderWorker.js"></script>
     <script src="js/recorder.js"></script>
     <script src="js/recognizer.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
-
+    <script src="https://use.fontawesome.com/03f8396175.js"></script>
   </body>
 </html>
