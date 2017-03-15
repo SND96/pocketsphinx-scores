@@ -45,6 +45,7 @@
       <button class="btn-small btn waves-effect waves-light " id="play" title="Play"><i class="fa fa-play" aria-hidden="true"></i></button>
 
 
+
 <div class="row"  style="text-align: center;">
         <div class="col s10 m10 offset-s1 offset-m1">
           <div class="card brown lighten-4">
@@ -178,6 +179,7 @@
     });
   }
 
+
       var check = function(){
         var id = document.getElementById('icon')
         var img = id.getAttribute('class')
@@ -196,6 +198,7 @@
         }
       }
 
+
       // This starts recording. We first need to get the id of the grammar to use
        function startRecording() {
         var id = document.getElementById('grammars').value;
@@ -204,10 +207,12 @@
       };
       // Stops recording
          function stopRecording() {
+
         recorder && recorder.stop();
         rec && rec.stop();
         displayRecording(false);
       //playbackRecorderAudio(recorder, audioContext);
+
       
       
        //  rec.exportWAV(function(blob) {
@@ -215,6 +220,7 @@
        //  var url = window.URL.createObjectURL(blob);
        //    recordedAudio.src = url;
        // });
+
    };
       
       var playback = function(e){
@@ -366,6 +372,7 @@
       startBtn.disabled = true;
       startBtn.onclick = check;
  
+
       play.onclick = playback;
       //stopBtn.onclick
       };
