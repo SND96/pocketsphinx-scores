@@ -37,8 +37,12 @@
     <button class="waves-effect waves-light btn" id="startBtn">Start</button>
     <button class="waves-effect waves-light btn" id="stopBtn">Stop</button>
     <br/><br/>
-      <audio id="recordedAudio" controls="controls">
-      </audio><br/><br/>
+    <p>Click the button below to replay the recorded audio</p>
+<!--       <audio id="recordedAudio" controls="controls">
+      </audio><br/><br/> -->
+          <span id="playing-indicator" style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 20px; height: 20px; background: green;"></span>
+      <button class="btn-floating btn-large waves-effect waves-light " id="play" title="Play"><img src="play.png" style="vertical-align: middle;" 
+                 alt="Record" id="change"></button>
 
 
 <div class="row"  style="text-align: center;">
@@ -134,7 +138,12 @@
       };
       // Callback function once the user authorises access to the microphone
       // in it, we instanciate the recorder
-      
+      // function displayPlaying(display)
+      // {
+      //    if (display) document.getElementById('playing-indicator').innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+      //   else document.getElementById('playing-indicator').innerHTML = "";
+      // }
+
       var audioContext = new AudioContext(); 
       function startUserMedia(stream) {
         var input = audioContext.createMediaStreamSource(stream);
@@ -156,9 +165,16 @@
       var source = context.createBufferSource();
       source.buffer = context.createBuffer(1, buffers[0].length, 44100);
       source.buffer.getChannelData(0).set(buffers[0]);
-      source.buffer.getChannelData(0).set(buffers[1]);
+      //source.buffer.getChannelData(0).set(buffers[1]);
       source.connect(context.destination);
-      source.noteOn(0);
+      //var request = new XMLHttpRequest();
+
+      //request.open('GET', '', true);
+
+      //request.responseType = 'arraybuffer';
+      //displayPlaying(true)
+
+      source.start(0);
     });
   }
 
@@ -166,38 +182,28 @@
       var startRecording = function() {
         var id = document.getElementById('grammars').value;
         if (recorder && recorder.start(id)) displayRecording(true)
-         rec && rec.record();
+        rec && rec.record();
       };
       // Stops recording
       var stopRecording = function() {
         recorder && recorder.stop();
-       rec && rec.stop();
+        rec && rec.stop();
         displayRecording(false);
       //playbackRecorderAudio(recorder, audioContext);
       
       
         rec.exportWAV(function(blob) {
 
-          var url = window.URL.createObjectURL(blob);
-     recordedAudio.src = url;
-      //recordedAudio.get()[0].load();
-
-       // var oReq = new XMLHttpRequest();
-       // oReq.open("POST", '/data', true);
-       // oReq.onload = function (oEvent) {
-       //   };
-       // var formData = new FormData();
-       // formData.append("operation", "addMessage");
-       // formData.append("msg", blob);
-       // oReq.send(formData);
-       // oReq = new XMLHttpRequest();
-       // oReq.open("GET", '/scores', false);
-       // oReq.send(null);
-       // alert(oReq.responseText);
+        var url = window.URL.createObjectURL(blob);
+          recordedAudio.src = url;
        });
    };
-       
       
+      var playback = function(e){
+          playbackRecorderAudio(rec, audioContext);
+      }
+
+
       // Called once the recognizer is ready
       // We then add the grammars to the input select tag and update the UI
       var recognizerReady = function() {
@@ -343,6 +349,7 @@
       stopBtn.disabled = true;
       startBtn.onclick = startRecording;
       stopBtn.onclick = stopRecording;
+      play.onclick = playback;
       //stopBtn.onclick
       };
        // This is the list of words that need to be added to the recognizer
