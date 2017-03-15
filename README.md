@@ -27,3 +27,9 @@ Also Note that on very recent versions of Chrome, the app must be served through
 
 In addition to speech recognition, the acoustic scores of each word is also displayed under the heading "Acoustic Scores" after the speech input is analyzed.
 
+# Web Audio Playback
+
+There is also a play button which can be used to replay the recording. By using Web Audio, you can add all sorts of effects and processing before it is played back, combine it with other recordings, and transform your recording in whatever other ways you want. Recorder.js has a getBuffer method that can be used for retrieving the recorded buffer, as it is within the demo.
+
+getBuffer returns a pair of Float32Arrays of audio data, one for each channel (left and right). To play it back, we simply create the a new source and create left and right buffers on it using context.createBuffer. We set the channelData to be the data arrays we retrieved, connect the source to our destination, and play it back. It's not much more complex than using an <audio> tag, but is potentially much more powerful - we could add all sorts of processing nodes between the source and the destination, if we were so inclined.
+
