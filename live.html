@@ -30,13 +30,16 @@
     <!-- <h2></h2> -->
     <ul>
       <li><p>This demo works on recent versions of Chrome and Firefox with the Web Audio API, make sure it works for you and actually records audio.</p></li>
-      <li><p>Press "Start" and say"What's your name".</p></li>
+      <li><p>Press "Start" and say "What's your name".</p></li>
     </ul>
     <select id="grammars"></select>
     <span id="recording-indicator" style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 20px; height: 20px; background: red;"></span>
     <button class="waves-effect waves-light btn" id="startBtn">Start</button>
     <button class="waves-effect waves-light btn" id="stopBtn">Stop</button>
-    
+    <br/><br/>
+      <audio id="recordedAudio" controls="controls">
+      </audio><br/><br/>
+
 
 <div class="row"  style="text-align: center;">
         <div class="col s10 m10 offset-s1 offset-m1">
@@ -131,6 +134,8 @@
       };
       // Callback function once the user authorises access to the microphone
       // in it, we instanciate the recorder
+      
+      var audioContext = new AudioContext(); 
       function startUserMedia(stream) {
         var input = audioContext.createMediaStreamSource(stream);
         // Firefox hack https://support.mozilla.org/en-US/questions/984179
@@ -145,15 +150,18 @@
         updateStatus("Audio recorder ready");
       };
           
-          var blobToBase64 = function(blob, cb) {
-          var reader = new FileReader();
-          reader.onload = function() {
-          var dataUrl = reader.result;
-          var base64 = dataUrl.split(',')[1];
-          cb(base64);
-        };
-        reader.readAsDataURL(blob);
-};
+
+  var playbackRecorderAudio = function (recorder, context) {
+    recorder.getBuffer(function (buffers) {
+      var source = context.createBufferSource();
+      source.buffer = context.createBuffer(1, buffers[0].length, 44100);
+      source.buffer.getChannelData(0).set(buffers[0]);
+      source.buffer.getChannelData(0).set(buffers[1]);
+      source.connect(context.destination);
+      source.noteOn(0);
+    });
+  }
+
       // This starts recording. We first need to get the id of the grammar to use
       var startRecording = function() {
         var id = document.getElementById('grammars').value;
@@ -161,13 +169,19 @@
          rec && rec.record();
       };
       // Stops recording
-      var stopRecording = function($http) {
+      var stopRecording = function() {
         recorder && recorder.stop();
        rec && rec.stop();
         displayRecording(false);
-      //   //Saving and sending the data to the server
+      //playbackRecorderAudio(recorder, audioContext);
       
-       // rec && rec.exportWAV(function(blob) {
+      
+        rec.exportWAV(function(blob) {
+
+          var url = window.URL.createObjectURL(blob);
+     recordedAudio.src = url;
+      //recordedAudio.get()[0].load();
+
        // var oReq = new XMLHttpRequest();
        // oReq.open("POST", '/data', true);
        // oReq.onload = function (oEvent) {
@@ -180,7 +194,7 @@
        // oReq.open("GET", '/scores', false);
        // oReq.send(null);
        // alert(oReq.responseText);
-      // });
+       });
    };
        
       
@@ -202,6 +216,8 @@
             selectTag.appendChild(newElt);
         }
       };
+
+
       // This adds a grammar from the grammars array
       // We add them one by one and call it again as
       // a callback.
@@ -226,17 +242,6 @@
       var initRecognizer = function() {
           // You can pass parameters to the recognizer, such as : {command: 'initialize', data: [["-hmm", "my_model"], ["-fwdflat", "no"]]}
          
-//       var hello = function () {
-//   var log = console.warn;
-//   console.warn = function () {
-//     log.call(this,"Hello");
-//     //document.write("hwllo");
-//     //log.apply(this, Array.prototype.slice.call(arguments));
-//     display(log);
-//     log.apply(this, Array.prototype.slice.call(arguments));
-//   };
-// };
-// hello();
           postRecognizerJob({command: 'initialize',// data: [["-hmm", "my_model"], ["-fwdflat", "no"]]}
                              //callbackId: id,
                                 data: [  //["-jsgf", "wyn-align.jsgf"],
@@ -252,13 +257,8 @@
                                         if (recorder) recorder.consumers = [recognizer];
                                         feedWords(wordList);}
                                         );
-          // postRecognizerJob({command: 'initialize',
-          //               callbackId: id,
-          //              },
-          //              function(){
-          //               if (recorder) recorder.consumers = [recognizer];
-          //              });
       };
+
       // When the page is loaded, we spawn a new recognizer worker and call getUserMedia to
       // request access to the microphone
       window.onload = function() {
