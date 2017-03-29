@@ -33,10 +33,12 @@
       <li><p>Click the first button to record and say "What's your name"</p></li>
       <li><p>Click again to stop the recording. Press the play button to replay the recording </p></li>
     </ul>
-    <select id="grammars"></select>
+    <select id="grammars">Select</select>
     <span id="recording-indicator" style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 20px; height: 20px; background: red;"></span>
     <button class="waves-effect waves-light btn" id="startBtn"><i class="fa fa-microphone" aria-hidden="true" id="icon"></i>
 </button>
+
+
     <!-- <button class="waves-effect waves-light btn" id="stopBtn"><i class="fa fa-stop" aria-hidden="true"></i></button> -->
     
 <!--     <p>Click the button below to replay the recorded audio</p> -->
@@ -44,6 +46,13 @@
       </audio><br/><br/> -->
           <span id="playing-indicator" style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 20px; height: 20px; background: green;"></span>
       <button class="btn-small btn waves-effect waves-light " id="play" title="Play"><i class="fa fa-play" aria-hidden="true"></i></button>
+      <a style="display: inline;">Press to: [Record </a><i class="fa fa-microphone"></i> 
+       <a style="display: inline;">] [Stop </a><i class="fa fa-stop"></i> 
+       <a style="display: inline;">] [Play </a><i class="fa fa-play"></i>
+       <a style="display: inline;">] [Evaluate </a><i class="fa fa-question"></i>
+       <a style="display: inline;">] [Say in phrase </a><i class="fa fa-link"></i>
+       <a style="display: inline;">]</a>
+      
 
 
 <div class="row"  style="text-align: center;">
@@ -90,7 +99,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-
     <meta charset="utf-8">
     <title></title>
   </head>
@@ -144,7 +152,6 @@
       //    if (display) document.getElementById('playing-indicator').innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
       //   else document.getElementById('playing-indicator').innerHTML = "";
       // }
-
       var audioContext = new AudioContext(); 
       function startUserMedia(stream) {
         var input = audioContext.createMediaStreamSource(stream);
@@ -160,7 +167,6 @@
         updateStatus("Audio recorder ready");
       };
           
-
   var playbackRecorderAudio = function (recorder, context) {
     recorder.getBuffer(function (buffers) {
       var source = context.createBufferSource();
@@ -169,16 +175,12 @@
       //source.buffer.getChannelData(0).set(buffers[1]);
       source.connect(context.destination);
       //var request = new XMLHttpRequest();
-
       //request.open('GET', '', true);
-
       //request.responseType = 'arraybuffer';
       //displayPlaying(true)
-
       source.start(0);
     });
   }
-
       var check = function(){
         var id = document.getElementById('icon')
         var img = id.getAttribute('class')
@@ -187,7 +189,6 @@
           id.setAttribute("class","fa fa-stop");
           startRecording();
           //document.getElementById('startBtn').checked = false;
-
         }
         else
         {
@@ -196,7 +197,6 @@
           //document.getElementById('startBtn').checked = false;
         }
       }
-
       // This starts recording. We first need to get the id of the grammar to use
        function startRecording() {
         var id = document.getElementById('grammars').value;
@@ -212,7 +212,6 @@
       
       
        //  rec.exportWAV(function(blob) {
-
        //  var url = window.URL.createObjectURL(blob);
        //    recordedAudio.src = url;
        // });
@@ -221,8 +220,6 @@
       var playback = function(e){
           playbackRecorderAudio(rec, audioContext);
       }
-
-
       // Called once the recognizer is ready
       // We then add the grammars to the input select tag and update the UI
       var recognizerReady = function() {
@@ -241,8 +238,6 @@
             selectTag.appendChild(newElt);
         }
       };
-
-
       // This adds a grammar from the grammars array
       // We add them one by one and call it again as
       // a callback.
@@ -283,7 +278,6 @@
                                         feedWords(wordList);}
                                         );
       };
-
       // When the page is loaded, we spawn a new recognizer worker and call getUserMedia to
       // request access to the microphone
       window.onload = function() {
