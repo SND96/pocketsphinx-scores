@@ -72,23 +72,27 @@
       <li><p>Click again to stop the recording. Press the play button to replay the recording </p></li>
     </ul>
     <select id="grammars">Select</select>
+    <audio controls="controls"></audio>
     <span id="recording-indicator" style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 20px; height: 20px; background: red;"></span>
-    <a style="display: inline;">Press to: [Record </a>
-    <button class="waves-effect waves-light btn" id="startBtn"><i class="fa fa-microphone" aria-hidden="true" id="icon"></i>
+    <a style="display: inline;">Press to: [Record/Stop </a>
+    <button class="waves-effect waves-light btn" id="startBtn" style= "padding: 3px 3px"><i class="fa fa-microphone" aria-hidden="true" id="icon"></i>
 </button>
+
+
     <!-- <button class="waves-effect waves-light btn" id="stopBtn"><i class="fa fa-stop" aria-hidden="true"></i></button> -->
     
 <!--     <p>Click the button below to replay the recorded audio</p> -->
 <!--       <audio id="recordedAudio" controls="controls">
       </audio><br/><br/> -->
-          <span id="playing-indicator" style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; width: 20px; height: 20px; background: green;"></span>
-          <a style="display: inline;">] [Stop/Play </a>
-      <button class="btn-small btn waves-effect waves-light " id="play" title="Play"><i class="fa fa-play" aria-hidden="true"></i></button>
+          <span id="playing-indicator" style="border-radius: 9px; -moz-border-radius: 9px; -webkit-border-radius: 10px; width: 20px; height: 20px; background: green;"></span>
+         <h10> <a style="display: inline;">] [Play </a></h10>
+      <button class="btn-small btn waves-effect waves-light " id="play" title="Play" style= "padding: 2px 3px"><i class="fa fa-play" aria-hidden="true"></i></button>
       <a style="display: inline;">] [Evaluate </a>    
-      <button class="btn-small btn waves-effect waves-light " id="eval" ><i class="fa fa-question" aria-hidden="true"></i></button>
+      <button class="btn-small btn waves-effect waves-light " id="eval" style= "padding: 3px 3px" ><i class="fa fa-question" aria-hidden="true"></i></button>
       
+
           <a style="display: inline;">] [Say in phrase </a>
-       <button class="waves-effect waves-light btn" id="phrase" onclick="window.location='https://docs.google.com/document/d/1gBc-yf4y8OLW7Pky278H_3FOXMHCNCxfvKMHplmimmU/edit#'""><i class="fa fa-link" aria-hidden="true" id="icon"></i>
+       <button class="waves-effect waves-light btn" id="phrase" onclick="window.location='https://docs.google.com/document/d/1gBc-yf4y8OLW7Pky278H_3FOXMHCNCxfvKMHplmimmU/edit#'"" style= "padding: 3px 3px"><i class="fa fa-link" aria-hidden="true" id="icon"></i>
        </button>
 
        <a style="display: inline;">]</a>
