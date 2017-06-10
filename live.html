@@ -129,16 +129,6 @@
 </div>
 </div>
 </div>
-<!-- </body>
-</html> -->
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body> -->
          
     <script>
       // These will be initialized later
@@ -176,17 +166,12 @@
         document.getElementById('current-status').innerHTML += "<br/>" + newStatus;
       };
       // A not-so-great recording indicator
+     // A not-so-great recording indicator
       function displayRecording(display) {
         // if (display) document.getElementById('recording-indicator').innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
         // else document.getElementById('recording-indicator').innerHTML = "";
       };
-      // Callback function once the user authorises access to the microphone
-      // in it, we instanciate the recorder
-      // function displayPlaying(display)
-      // {
-      //    if (display) document.getElementById('playing-indicator').innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-      //   else document.getElementById('playing-indicator').innerHTML = "";
-      // }
+
       var audioContext = new AudioContext(); 
       function startUserMedia(stream) {
         var input = audioContext.createMediaStreamSource(stream);
@@ -207,12 +192,8 @@
       var source = context.createBufferSource();
       source.buffer = context.createBuffer(1, buffers[0].length, 44100);
       source.buffer.getChannelData(0).set(buffers[0]);
-      //source.buffer.getChannelData(0).set(buffers[1]);
       source.connect(context.destination);
-      //var request = new XMLHttpRequest();
-      //request.open('GET', '', true);
-      //request.responseType = 'arraybuffer';
-      //displayPlaying(true)
+
       source.start(0);
     });
   }
@@ -223,7 +204,6 @@
         {
           id.setAttribute("class","fa fa-stop");
           startRecording();
-          //document.getElementById('startBtn').checked = false;
         }
         else
         {
@@ -243,14 +223,7 @@
         recorder && recorder.stop();
         rec && rec.stop();
         displayRecording(false);
-      //playbackRecorderAudio(recorder, audioContext);
-      
-      
-       //  rec.exportWAV(function(blob) {
-       //  var url = window.URL.createObjectURL(blob);
-       //    recordedAudio.src = url;
-       // });
-   };
+    };
       
       var playback = function(e){
           playbackRecorderAudio(rec, audioContext);
@@ -415,24 +388,24 @@
       var grammarIds = [];
     </script>
     <script >
-    	      // Get the modal
-	var modal = document.getElementById('myModal');
+            // Get the modal
+  var modal = document.getElementById('myModal');
 // Get the button that opens the modal
-	var btn = document.getElementById("eval");
+  var btn = document.getElementById("eval");
 // Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("close")[0];
+  var span = document.getElementsByClassName("close")[0];
 // When the user clicks the button, open the modal 
-	btn.onclick = function() {
+  btn.onclick = function() {
     modal.style.display = "block";
 }
 // When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
+  span.onclick = function() {
     modal.style.display = "none";
 }
 // When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-    	if (event.target == modal) {
-        	modal.style.display = "none";
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
     }
 }
     </script>
